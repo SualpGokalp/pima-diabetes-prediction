@@ -13,7 +13,6 @@ cols_with_zero = [
     "BMI"
 ]
 
-# Load & clean
 df = load_data("data/diabetes.csv")
 df = clean_data(df, cols_with_zero)
 
@@ -22,16 +21,17 @@ y = df["Outcome"]
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y,
-    test_size=0.2,
-    random_state=42,
-    stratify=y
+    test_size = 0.2,
+    random_state = 42,
+    stratify = y
 )
 
-# Train model
 model = LogisticRegression(max_iter=1000)
 model.fit(X_train, y_train)
 
-# Save model
 joblib.dump(model, "modeling/logistic_model.joblib")
 
-print("✅ Model trained and saved.")
+print("✅ Model Train and Saved.")
+
+
+
