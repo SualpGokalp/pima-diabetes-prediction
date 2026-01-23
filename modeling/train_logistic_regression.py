@@ -1,7 +1,12 @@
 import joblib
 import pandas as pd
+
 from sklearn.model_selection import train_test_split
+from sklearn.impute import KNNImputer
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report
 
 from src.data_processing import load_data, clean_data
 
@@ -26,12 +31,25 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify = y
 )
 
-model = LogisticRegression(max_iter=1000)
-model.fit(X_train, y_train)
+pipeline = Pipeline(steps = [
+    ("imputer", KNNImputer(
+        n_neighbors=5,
+        weights="distance"
+    )),
+    ("scaler", StandardScaler()),
+    ("model", LogisticRegression(
+        max_iter= 1000,
+        class_weight="balanced"
+        ))
+])
 
-joblib.dump(model, "modeling/logistic_model.joblib")
+pipeline.fit(X_train, y_train)
 
-print("✅ Model Train and Saved.")
+y_pred = pipeline.predict(X_test)
+print(classification_report(y_test, y_pred))
+
+joblib.dump(pipeline, "modeling/logistic_pipeline.joblib")
+
 
 
 

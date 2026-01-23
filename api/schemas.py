@@ -13,3 +13,4 @@ class PatientData(BaseModel):
 class PredictionResponse(BaseModel):
     prediction: str
     probability: float
+    risk_level: str
