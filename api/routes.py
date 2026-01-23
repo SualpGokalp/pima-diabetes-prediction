@@ -7,6 +7,8 @@ from api.model_loader import load_model
 router = APIRouter()
 model = load_model()
 
+THRESHOLD = 0.4
+
 def get_risk_level(probability: float) -> str:
     if probability < 0.3:
         return "Low"
@@ -29,7 +31,7 @@ def predict_diabetes(data: PatientData):
     ]])
 
     probability = model.predict_proba(features)[0][1]
-    prediction = "Diabetes" if probability >= 0.5 else "No Diabetes"
+    prediction = "Diabetes" if probability >= THRESHOLD else "No Diabetes"
     risk_level = get_risk_level(probability)
 
     return {
