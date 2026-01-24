@@ -11,4 +11,8 @@ app.include_router(router)
 
 @app.get("/")
 def health_check():
-    return{"status": "API is running"}
+    return{
+    "status": "API is running",
+    "model": "Random Forest",
+    "threshold": 0.40
+    }

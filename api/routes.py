@@ -8,6 +8,7 @@ router = APIRouter()
 model = load_model()
 
 THRESHOLD = 0.4
+MODEL_NAME = "Random Forest"
 
 def get_risk_level(probability: float) -> str:
     if probability < 0.3:
@@ -35,7 +36,9 @@ def predict_diabetes(data: PatientData):
     risk_level = get_risk_level(probability)
 
     return {
-     "prediction": prediction,
-      "probability": round(probability, 3),
-      "risk_level": risk_level
+        "prediction": prediction,
+        "probability": round(probability, 3),
+        "risk_level": risk_level,
+        "model": MODEL_NAME,
+         "threshold_used": THRESHOLD
     }

@@ -14,3 +14,5 @@ class PredictionResponse(BaseModel):
     prediction: str
     probability: float
     risk_level: str
+    model: str
+    threshold_used: float
