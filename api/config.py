@@ -1,0 +1,3 @@
+MODEL_NAME = "Random Forest"
+MODEL_VERSION = "v1.0"
+THRESHOLD = 0.40
